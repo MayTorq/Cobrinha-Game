@@ -27,3 +27,14 @@ body {
   font-size: 24px;
   font-weight: bold;
 }
+
+.snake {
+  background-color: #77292b;
+  border: 1px solid #5c1f20;
+}
+
+.food {
+  background-color: #c33149;
+  border-radius: 50%;
+  border: 1px solid #9b2536;
+}
