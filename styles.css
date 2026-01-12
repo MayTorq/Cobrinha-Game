@@ -1,0 +1,29 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #84894a;
+  color: #dddbdb;
+}
+
+.game-container {
+  text-align: center;
+}
+
+.game-board {
+  width: 400px;
+  height: 400px;
+  border: 2px solid #333;
+  display: grid;
+  grid-template-rows: repeat(20, 1fr);
+  grid-template-columns: repeat(20, 1fr);
+  background-color: #a6a15e;
+}
+
+.score {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
