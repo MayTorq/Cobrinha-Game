@@ -11,8 +11,20 @@
 <body>
     <div class="game-container">
         <h1>Cobrinha's Game</h1>
+        <div class="controls">
+            <button id="iniciarBtn">Iniciar</button>
+            <button id="pausarBtn">Pausar</button>
+        </div>
         <div class="game-board" id="gameBoard"></div>
-        <div class="score">Pontos: <span id="score">0</span></div>
+        <div class="game-info">
+            <div class="score">Pontos: <span id="score">0</span></div>
+            <div class="high-score">Recorde: <span id="highScore">0</span></div>
+        </div>
+        <div class="game-over" id="gameOver">
+            <h2>Fim de Jogo</h2>
+            <p>Seus Pontos: <span id="finalScore">0</span></p>
+            <button id="reiniciarBtn">Jogar Novamente</button>
+        </div>
     </div>
 </body>
 
