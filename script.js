@@ -1,14 +1,64 @@
 let cobra = [{ x: 10, y: 10 }];
-let comida = gerarComida();
+let comida = null;
+let comidaEspecial = null;
 let direcao = "DIREITA";
+let proximaDirecao = "DIREITA";
 let velocidade = 150;
 let pontos = 0;
+let record = localStorage.getItem("record") || 0;
 let intervaloJogo;
+let pausado = false;
+let fimDeJogo = false;
+let timerComidaEspecial = null;
+
+const iniciarBtn = document.getElementById("iniciarBtn");
+const pausarBtn = document.getElementById("pausarBtn");
+const reiniciarBtn = document.getElementById("reiniciarBtn");
+const gameOver = document.getElementById("gameOver");
+const pontosElement = document.getElementById("score");
+const recordElement = document.getElementById("highScore");
+const pontosFinaisElement = document.getElementById("finalScore");
 
 function iniciar() {
+  recordElement.textContent = record;
+  iniciarBtn.addEventListener("click", iniciarJogo);
+  //pausarBtn.addEventListener("click", pausarJogo);
+  //reiniciarBtn.addEventListener("click", reiniciarJogo);
+}
+
+function iniciarJogo() {
+  if (intervalo) {
+    clearInterval(intervalo);
+  }
+  cobra = [{ x: 10, y: 10 }];
+  direcao = "DIREITA";
+  direcaoProxima = "DIREITA";
+  pontos = 0;
+  pontosElement.textContent = pontos;
+  comida = gerarComida();
+  fimDeJogo = false;
+  pausado = false;
+  gameOver.style.display = "none";
+
+  comida = gerarComida();
+  if (comidaEspecial) {
+    clearTimeout(timerComidaEspecial);
+    comidaEspecial = null;
+  }
+
+  iniciarBtn.disabled = true;
+  pausarBtn.disabled = false;
+
+  //document.addEventListener("keydown", mudarDirecao);
+  intervalo = setInterval(loopJogo, velocidade);
+}
+
+function loopJogo() {
+  if (pausado || fimDeJogo) return;
+
+  direcao = proximaDirecao;
+  moverCobra();
   criarTabuleiro();
-  document.addEventListener("keydown", mudarDirecao);
-  intervalo = setInterval(moverCobra, velocidade);
 }
 
 function criarTabuleiro() {
