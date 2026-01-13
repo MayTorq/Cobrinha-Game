@@ -22,9 +22,35 @@ body {
   background-color: #a6a15e;
 }
 
-.score {
+.controls {
+  margin: 10px 0;
+}
+
+button {
+  padding: 8px 16px;
+  margin: 0 5px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #979c5c;
+  border: none;
+  color: #dddbdb;
+  border-radius: 5px;
+}
+
+button:disabled {
+  background-color: #333;
+  cursor: not-allowed;
+}
+
+.game-info {
+  display: flex;
+  justify-content: space-around;
+}
+
+.score,
+.high-score {
   margin-top: 20px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
 }
 
@@ -33,8 +59,42 @@ body {
   border: 1px solid #053012;
 }
 
+.snake-head {
+  background-color: #061611;
+  border: 1px solid #053012;
+}
+
 .food {
   background-color: #c33149;
   border-radius: 50%;
   border: 1px solid #9b2536;
+}
+
+.special-food {
+  background-color: #4ec7a0;
+  border-radius: 50%;
+  border: 1px solid #379d7a;
+  animation: pulsar 0.5s infinite alternate;
+}
+
+@keyframes pulsar {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.2);
+  }
+}
+
+.game-over {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #373f47;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  display: none;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
