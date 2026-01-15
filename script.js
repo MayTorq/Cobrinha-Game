@@ -10,6 +10,8 @@ let intervaloJogo;
 let pausado = false;
 let estadoFimDeJogo = false;
 let timerComidaEspecial = null;
+let toqueXinicial = 0;
+let toqueYinicial = 0;
 
 const iniciarBtn = document.getElementById("iniciarBtn");
 const pausarBtn = document.getElementById("pausarBtn");
@@ -25,6 +27,17 @@ function iniciar() {
   pausarBtn.addEventListener("click", alternarPausa);
   reiniciarBtn.addEventListener("click", reiniciarJogo);
   document.addEventListener("keydown", mudarDirecao);
+
+  const tabuleiro = document.getElementById("gameBoard");
+  tabuleiro.addEventListener("touchstart", lidarComToqueInicial, {
+    passive: false,
+  });
+  tabuleiro.addEventListener("touchend", lidarComToqueFinal, {
+    passive: false,
+  });
+  tabuleiro.addEventListener("touchmove", (e) => e.preventDefault(), {
+    passive: false,
+  });
 }
 
 function iniciarJogo() {
@@ -127,6 +140,36 @@ function mudarDirecao(event) {
     proximaDirecao = "ESQUERDA";
   else if (tecla === "ArrowRight" && direcao !== "ESQUERDA")
     proximaDirecao = "DIREITA";
+}
+
+function lidarComToqueInicial(event) {
+  toqueXInicial = event.touches[0].clientX;
+  toqueYInicial = event.touches[0].clientY;
+}
+
+function lidarComToqueFinal(event) {
+  if (!toqueXInicial || !toqueYInicial) return;
+
+  let toqueXFinal = event.changedTouches[0].clientX;
+  let toqueYFinal = event.changedTouches[0].clientY;
+
+  let diffX = toqueXFinal - toqueXInicial;
+  let diffY = toqueYFinal - toqueYInicial;
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    if (Math.abs(diffX) > 30) {
+      if (diffX > 0 && direcao !== "ESQUERDA") proximaDirecao = "DIREITA";
+      else if (diffX < 0 && direcao !== "DIREITA") proximaDirecao = "ESQUERDA";
+    }
+  } else {
+    if (Math.abs(diffY) > 30) {
+      if (diffY > 0 && direcao !== "CIMA") proximaDirecao = "BAIXO";
+      else if (diffY < 0 && direcao !== "BAIXO") proximaDirecao = "CIMA";
+    }
+  }
+
+  toqueXInicial = 0;
+  toqueYInicial = 0;
 }
 
 function moverCobra() {
